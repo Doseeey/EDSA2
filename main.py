@@ -1,6 +1,5 @@
 from signals import random_signal, periodic_signal, chaotic_signal
-from tau_estimates import estimate_tau_autocorrelation
-
+from tau_estimates import estimate_tau_autocorrelation, estimate_tau_mutual
 import numpy as np
 import matplotlib.pyplot as plt
 #Spoko libki moga sie przydac
@@ -19,7 +18,6 @@ rossler09_sig = chaotic_signal("data/rossler_fractional_0_9.csv", display_plot=d
 rossler088_sig = chaotic_signal("data/rossler_fractional_0_88.csv", display_plot=display_plot)
 
 # TODO
-# Tau estimation - autocorrelation + mutual information
 # embedded dimension - po tau, GP do testa
 # rekonstrukcja na podstawie ed i tau
 # hurst
@@ -29,5 +27,6 @@ rossler088_sig = chaotic_signal("data/rossler_fractional_0_88.csv", display_plot
 
 signals = [random_sig, periodic_sig, lorenz_sig, rossler_sig, rossler09_sig, rossler088_sig]
 
-for signal in signals:
+for signal in signals[2:]:
     estimate_tau_autocorrelation(signal)
+    estimate_tau_mutual(signal)
