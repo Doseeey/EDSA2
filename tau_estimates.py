@@ -53,3 +53,5 @@ def estimate_tau_mutual(data: np.ndarray) -> int:
     plt.legend()
     plt.grid(True, linestyle=':')
     plt.show()
+
+    return tau

@@ -1,10 +1,7 @@
 from signals import random_signal, periodic_signal, chaotic_signal
 from tau_estimates import estimate_tau_autocorrelation, estimate_tau_mutual
-import numpy as np
-import matplotlib.pyplot as plt
-#Spoko libki moga sie przydac
-#import nolds
-#import hundun
+from estimate_ed import estimate_correlation_dimension_range, estimate_ed
+from phase_space_reconstruction import phase_space_reconstruction
 
 
 n = 10000
@@ -18,8 +15,6 @@ rossler09_sig = chaotic_signal("data/rossler_fractional_0_9.csv", display_plot=d
 rossler088_sig = chaotic_signal("data/rossler_fractional_0_88.csv", display_plot=display_plot)
 
 # TODO
-# embedded dimension - po tau, GP do testa
-# rekonstrukcja na podstawie ed i tau
 # hurst
 # lapunov
 # analiza fraktalna
@@ -27,6 +22,35 @@ rossler088_sig = chaotic_signal("data/rossler_fractional_0_88.csv", display_plot
 
 signals = [random_sig, periodic_sig, lorenz_sig, rossler_sig, rossler09_sig, rossler088_sig]
 
-for signal in signals[2:]:
-    estimate_tau_autocorrelation(signal)
-    estimate_tau_mutual(signal)
+# for signal in signals[2:]:
+#     tau_acr = estimate_tau_autocorrelation(signal)
+#     tau_mutual = estimate_tau_mutual(signal)
+
+signal = lorenz_sig[:, 0]
+
+# tau_acr = estimate_tau_autocorrelation(signal)
+
+# print(f"Tau ACR: {tau_acr}")
+
+# tau_mutual = estimate_tau_mutual(signal)
+
+# print(f"Tau ACR: {tau_mutual}")
+
+
+estimated_D2 = estimate_ed(
+        signal=signal[:20000],
+        m_min=1,
+        m_max=8,
+        tau=55, 
+    )
+
+# phase_space_reconstruction(signal, 3, tau_acr)
+# phase_space_reconstruction(signal, 3, tau_mutual)
+
+#print(ed_acr)
+
+# import nolds
+
+# d2, debug_data = nolds.corr_dim(signal, emb_dim=1, lag=55, debug_data=True)
+# print(d2)
+# print(debug_data)
