@@ -1,6 +1,6 @@
 from signals import random_signal, periodic_signal, chaotic_signal
 from tau_estimates import estimate_tau_autocorrelation, estimate_tau_mutual
-from estimate_ed import estimate_correlation_dimension_range, estimate_ed
+from estimate_ed import estimate_ed
 from phase_space_reconstruction import phase_space_reconstruction
 
 
@@ -28,29 +28,19 @@ signals = [random_sig, periodic_sig, lorenz_sig, rossler_sig, rossler09_sig, ros
 
 signal = lorenz_sig[:, 0]
 
-# tau_acr = estimate_tau_autocorrelation(signal)
+#Lag estimation
+tau_acr = estimate_tau_autocorrelation(signal)
+print(f"Tau ACR: {tau_acr}")
 
-# print(f"Tau ACR: {tau_acr}")
-
-# tau_mutual = estimate_tau_mutual(signal)
-
-# print(f"Tau ACR: {tau_mutual}")
+tau_mutual = estimate_tau_mutual(signal)
+print(f"Tau ACR: {tau_mutual}")
 
 
-estimated_D2 = estimate_ed(
-        signal=signal[:20000],
-        m_min=1,
-        m_max=8,
-        tau=55, 
-    )
+#Embedding dimension estimation (very long)
+#estimate_ed(signal=signal[:20000], m_min=1, m_max=8, tau=tau_acr)
 
-# phase_space_reconstruction(signal, 3, tau_acr)
-# phase_space_reconstruction(signal, 3, tau_mutual)
+#Phase space reconstruction
+ed = 3
 
-#print(ed_acr)
-
-# import nolds
-
-# d2, debug_data = nolds.corr_dim(signal, emb_dim=1, lag=55, debug_data=True)
-# print(d2)
-# print(debug_data)
+phase_space_reconstruction(signal, ed, tau_acr)
+phase_space_reconstruction(signal, ed, tau_mutual)
