@@ -30,18 +30,18 @@ signals = [random_sig, periodic_sig, lorenz_sig, rossler_sig, rossler09_sig, ros
 
 # Example
 
-signal = rossler_sig[:, 0]
+signal = rossler088_sig[:, 0]
 
 #Lag estimation
-tau_acr = estimate_tau_autocorrelation(signal)
-tau_mi = estimate_tau_mutual(signal)
+tau_acr = estimate_tau_autocorrelation(signal, display_plot=False)
+tau_mi = estimate_tau_mutual(signal, display_plot=False)
 
 #Embedding dimension estimation (dlugo trwa)
-estimate_ed(signal[:5000], m_min = 1, m_max = 8, tau = tau_acr)
-estimate_ed(signal[:5000], m_min = 1, m_max = 8, tau = tau_mi)
+estimate_ed(signal[:4000], m_min = 1, m_max = 8, tau = tau_acr)
+#estimate_ed(signal[:5000], m_min = 1, m_max = 8, tau = tau_mi)
 
 ed = 3
 
 #Phase space reconstruction
-phase_space_reconstruction(signal, ed, tau_acr)
-phase_space_reconstruction(signal, ed, tau_mi)
+#phase_space_reconstruction(signal, ed, tau_acr)
+#phase_space_reconstruction(signal, ed, tau_mi)
