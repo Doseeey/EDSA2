@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import nolds
 
 def estimate_ed(signal, m_min=1, m_max=10, tau=10):
-    print(f"--- Grassberger-Procaccia Analysis (tau={tau}) ---")
+    print(f"--- Embedding Dimension Analysis (tau={tau}) ---")
 
     embedding_dims = range(m_min, m_max + 1)
     D2_estimates = []
@@ -27,9 +27,9 @@ def estimate_ed(signal, m_min=1, m_max=10, tau=10):
     fig, axes = plt.subplots(1, 2, figsize=(16, 6))
 
     ax1 = axes[0]
-    ax1.set_title(f'Nolds Log-Log Plot: $\\log C_m(r)$ vs $\\log r$ ($\\tau$={tau})')
-    ax1.set_xlabel('$\\log r$ (Radius)')
-    ax1.set_ylabel('$\\log C_m(r)$ (Correlation Sum)')
+    ax1.set_title(f'$\\log C_2(r)$ vs $\\log r$ ($\\tau$={tau})')
+    ax1.set_xlabel('$\\log r$')
+    ax1.set_ylabel('$\\log C_2(r)$')
     ax1.grid(True, linestyle='--', alpha=0.6)
     
     for m in range(m_max):
@@ -42,20 +42,15 @@ def estimate_ed(signal, m_min=1, m_max=10, tau=10):
         print(f"D2 estimate = {D2:.4f}")
         
     ax2 = axes[1]
-    ax2.set_title('Correlation Dimension Convergence (Nolds)')
-    ax2.set_xlabel('Embedding Dimension ($m$)')
-    ax2.set_ylabel('Estimated Dimension ($D_2$)')
+    ax2.set_title('Correlation Dimension')
+    ax2.set_xlabel('$e_D$')
+    ax2.set_ylabel('$D_2$')
     ax2.grid(True, linestyle='--', alpha=0.6)
     
     m_values = np.array(range(m_min, m_max+1))
     D2_values = np.array(list(D2_estimates))
     
     ax2.plot(m_values, D2_values, 'o-', color='blue', label='D2 Estimate')
-
-    # Mark the final converged dimension (D2_final is the plateau value)
-    if D2_final is not None:
-        ax2.axhline(D2_final, color='red', linestyle='-', linewidth=2, label=f'Converged $D_2 \\approx {D2_final:.4f}$')
-        ax2.legend(loc='lower right')
 
     plt.tight_layout()
     plt.show()

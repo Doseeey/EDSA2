@@ -16,7 +16,7 @@ def find_zero_or_minimum(acf_values: np.array) -> int:
             return i
     return 1 
 
-def calculate_average_mutual_information(time_series, max_tau, num_bins=32):
+def calculate_average_mutual_information(time_series, max_tau, num_bins=16):
     N = len(time_series)
     ami_values = []
     hist_range = (time_series.min(), time_series.max())
@@ -56,25 +56,9 @@ def find_first_local_minimum(ami_values):
     return None, None
 
 def create_delay_vectors(signal, m, tau):
-    """
-    Creates delay embedded vectors from a time series (Takens' Theorem).
-
-    Parameters:
-    - signal (np.array): 1D time series (e.g., [x(t), x(t+1), ...]).
-    - m (int): Embedding dimension.
-    - tau (int): Time delay (lag).
-
-    Returns:
-    - np.array: Array of embedded vectors (N_vectors x m).
-    """
     N = len(signal)
-    # The number of vectors N_m that can be created
     N_vectors = N - (m - 1) * tau
     
-    if N_vectors <= 0:
-        raise ValueError("Signal is too short for the given m and tau.")
-    
-    # Create the matrix of embedded vectors
     embedded_vectors = np.array([
         signal[i : i + m * tau : tau]
         for i in range(N_vectors)

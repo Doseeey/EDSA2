@@ -17,30 +17,31 @@ rossler088_sig = chaotic_signal("data/rossler_fractional_0_88.csv", display_plot
 # TODO
 # hurst
 # lapunov
-# analiza fraktalna
+# analiza fraktalna - entropia
 # bifurkacja
+
+# tau i ed na sprawku wypisane, wszystkie sa dla signal[:, 0] (pierwszego wektora)
 
 signals = [random_sig, periodic_sig, lorenz_sig, rossler_sig, rossler09_sig, rossler088_sig]
 
-# for signal in signals[2:]:
-#     tau_acr = estimate_tau_autocorrelation(signal)
-#     tau_mutual = estimate_tau_mutual(signal)
+# for signal in signals[3:]:
+#     tau_acr = estimate_tau_autocorrelation(signal[:, 0])
+#     tau_mutual = estimate_tau_mutual(signal[:, 0])
 
-signal = lorenz_sig[:, 0]
+# Example
+
+signal = rossler_sig[:, 0]
 
 #Lag estimation
 tau_acr = estimate_tau_autocorrelation(signal)
-print(f"Tau ACR: {tau_acr}")
+tau_mi = estimate_tau_mutual(signal)
 
-tau_mutual = estimate_tau_mutual(signal)
-print(f"Tau ACR: {tau_mutual}")
+#Embedding dimension estimation (dlugo trwa)
+estimate_ed(signal[:5000], m_min = 1, m_max = 8, tau = tau_acr)
+estimate_ed(signal[:5000], m_min = 1, m_max = 8, tau = tau_mi)
 
-
-#Embedding dimension estimation (very long)
-#estimate_ed(signal=signal[:20000], m_min=1, m_max=8, tau=tau_acr)
-
-#Phase space reconstruction
 ed = 3
 
+#Phase space reconstruction
 phase_space_reconstruction(signal, ed, tau_acr)
-phase_space_reconstruction(signal, ed, tau_mutual)
+phase_space_reconstruction(signal, ed, tau_mi)
