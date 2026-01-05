@@ -66,7 +66,7 @@ for index, item in enumerate(signals):
     signal_to_pass = signal_to_pass[:10000].flatten() if index == 2 else signal_to_pass
     analyze_signal(signal_to_pass, params["name"], params["tau"], params["dim"])
 
-generate_bifurcation()
+# generate_bifurcation()
 # Example
 
 # signal = rossler088_sig[:, 0]
