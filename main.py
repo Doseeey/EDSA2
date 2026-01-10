@@ -57,16 +57,16 @@ signals = [
     })
 ]
 
-for index, item in enumerate(signals):
-    signal, params = item
-    # tau_acr = estimate_tau_autocorrelation(signal[:, 0])
-    # tau_mutual = estimate_tau_mutual(signal[:, 0])
-    # estimate_ed(signal[:4000], m_min = 1, m_max = 8, tau = tau_acr)
-    signal_to_pass = signal if index < 2 else signal[:, 0]
-    signal_to_pass = signal_to_pass[:10000].flatten() if index == 2 else signal_to_pass
-    analyze_signal(signal_to_pass, params["name"], params["tau"], params["dim"])
+# for index, item in enumerate(signals):
+#     signal, params = item
+#     # tau_acr = estimate_tau_autocorrelation(signal[:, 0])
+#     # tau_mutual = estimate_tau_mutual(signal[:, 0])
+#     # estimate_ed(signal[:4000], m_min = 1, m_max = 8, tau = tau_acr)
+#     signal_to_pass = signal if index < 2 else signal[:, 0]
+#     signal_to_pass = signal_to_pass[:10000].flatten() if index == 2 else signal_to_pass
+#     analyze_signal(signal_to_pass, params["name"], params["tau"], params["dim"])
 
-# generate_bifurcation()
+generate_bifurcation()
 # Example
 
 # signal = rossler088_sig[:, 0]
